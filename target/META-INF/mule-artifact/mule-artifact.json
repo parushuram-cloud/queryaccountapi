@@ -1,0 +1,33 @@
+{
+  "configs": [
+    "acconutapi-1.xml",
+    "createAccount.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:assignaccountapi-1:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.3.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "acconutapi-1.xml",
+        "api/acconutapi-1.raml",
+        "api/dataTypes/account.raml",
+        "api/dataTypes/accountResponse.raml",
+        "api/dataTypes/accountUpdate.raml",
+        "api/examples/accountExample.raml",
+        "api/examples/accountResponseExample.raml",
+        "api/examples/accountUpdateExample.raml",
+        "createAccount.xml",
+        "log4j2.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}

@@ -1,0 +1,36 @@
+#%RAML 1.0
+title: acconutapi-1
+baseUri: http://localhost:8081/api/
+types:
+  account: !include dataTypes/account.raml
+  accountResponse: !include dataTypes/accountResponse.raml
+
+/createAccount:
+  post:
+    body:
+      application/json:
+        type: account
+        example: !include examples/accountExample.raml
+    responses:
+      200:
+        body:
+          application/json:
+            type: accountResponse
+            example:  !include examples/accountResponseExample.raml
+              
+
+
+            
+
+          
+              
+  
+         
+    
+    
+    
+    
+
+  
+                
+    

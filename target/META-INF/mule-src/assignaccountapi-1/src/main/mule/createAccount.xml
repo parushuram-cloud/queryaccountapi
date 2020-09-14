@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="dd551f4b-5359-4989-8ac1-688086f8429a" >
+		<db:my-sql-connection host="localhost" port="3306" user="ram" password="Rmsi@252012345" database="integration" />
+	</db:config>
+	<flow name="createAccountFlow" doc:id="df47e819-7937-4f66-ad14-c0ece57fc806" >
+		<logger level="INFO" doc:name="Logger" doc:id="c80acc8a-a843-44f1-b5ab-cf5e9b60186b" message="createAccountFlowStarts......#[payload]"/>
+		<db:insert doc:name="Insert" doc:id="00d38d44-1d19-4b23-ace4-9aa10e7e75a8" config-ref="Database_Config">
+			<db:sql ><![CDATA[insert into Account(name,gender,phone,email,dateOfBirth) 
+values (:name,:gender,:mobileNo,:emailId,:dob) ;]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	name:payload.name,
+	gender:payload.gender,
+	mobileNo:payload.phone,
+	emailId:payload.email,
+	dob:payload.dateOfBirth
+	
+}]]]></db:input-parameters>
+		</db:insert>
+		<ee:transform doc:name="Transform Message" doc:id="2f6ff5b2-7423-42a5-ac96-afbddd24bffe" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	
+	statusCod:201,
+	message:"Account Created Successfully"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="508187ab-722f-4295-9849-7990435ce1b6" message="finalResponsefromAccountFlow......#[payload]"/>
+	</flow>
+</mule>
